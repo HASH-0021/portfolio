@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/static/css/main.7b1ec588.css",
+    "main.js": "/static/js/main.9722aac3.js",
+    "static/js/787.22edae46.chunk.js": "/static/js/787.22edae46.chunk.js",
+    "static/media/Profile picture.png": "/static/media/Profile picture.11ff7245c46af82e9a7a.png",
+    "static/media/Hacker News Web Scraper logo.png": "/static/media/Hacker News Web Scraper logo.d39c985ce17609c11afa.png",
+    "static/media/my Portfolio logo.png": "/static/media/my Portfolio logo.db5fd5473fc89052cd95.png",
+    "index.html": "/index.html",
+    "main.7b1ec588.css.map": "/static/css/main.7b1ec588.css.map",
+    "main.9722aac3.js.map": "/static/js/main.9722aac3.js.map",
+    "787.22edae46.chunk.js.map": "/static/js/787.22edae46.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7b1ec588.css",
+    "static/js/main.9722aac3.js"
+  ]
+}
