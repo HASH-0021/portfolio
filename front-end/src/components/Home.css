@@ -1,0 +1,41 @@
+#home-section {
+  width: 100%;
+  padding: 5% 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  background-color: transparent;
+}
+
+#profile-text {
+  width: 75%;
+  padding: 0.8% 2%;
+  border: double black 5px;
+  border-radius: 25px;
+}
+
+#salutation {
+  margin: 0;
+  font-size: 125%;
+}
+
+#content-body {
+  margin: 2%;
+  font-size: 100%;
+}
+
+#profile-image {
+  height: 25vh;
+  width: 250px;
+  margin: 1%;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#profile-image img {
+  height: 90%;
+  width: auto;
+  aspect-ratio: 3/3;
+}

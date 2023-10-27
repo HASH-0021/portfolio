@@ -1,0 +1,242 @@
+#works-section {
+	width: 100%;
+}
+
+#personal-projects {
+	width: 94%;
+	margin: 1% 3%;
+}
+
+#carousel-wrapper {
+	margin: 2% 12.5%;
+	width: 75%;
+	text-align: center;
+	position: relative;
+	display: flex;
+	align-items: center;
+	overflow: hidden;
+}
+
+#project-container {
+	position: fixed;
+	left: 30%;
+	top: 15vh;
+	width: 40%;
+	height: 70vh;
+	border: ridge white 5px;
+	z-index: 3;
+	overflow-y: scroll;
+}
+
+#project-image {
+	width: 100%;
+	height: auto;
+	aspect-ratio: 4/3;
+	display: block;
+}
+
+#close-project-button-wrapper {
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: 2px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 4;
+}
+
+#close-project-button {
+	border-style: hidden;
+	border-radius: 25px;
+	color: black;
+	background-color: white;
+	opacity: 0.7;
+	box-shadow: 1.5px 1px 0.5px gray;
+	transition: transform 0.2s, opacity 0.2s;
+	cursor: pointer;
+}
+
+#close-project-button:hover {
+	transform: scale(1.1,1.1);
+	box-shadow: 2px 1.5px 1px gray;
+	opacity: 1;
+}
+
+#close-project-button:active {
+	transform: scale(1.0,1.0);
+}
+
+#project-text {
+	width: 100%;
+	height: auto;
+	background-color: lightgoldenrodyellow;
+	padding: 2% 5%;
+}
+
+#project-links {
+	list-style: none;
+}
+
+#project-links a {
+	word-wrap: break-word;
+}
+
+#carousel {
+	margin: 0 5%;
+	padding: 0;
+	list-style: none;
+	width: 90%;
+	display: grid;
+	grid-auto-flow: column;
+	grid-auto-columns: calc(100%/3);
+	overflow-x: auto;
+	scroll-snap-type: x mandatory;
+	scroll-behavior: smooth;
+	z-index: 1;
+}
+
+#carousel::-webkit-scrollbar {
+	display: none;
+}
+
+#carousel.no-scroll-transition {
+	scroll-behavior: auto;
+}
+
+.carousel-item-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: auto;
+	scroll-snap-align: start;
+}
+
+.carousel-item {
+	display: flex;
+	flex-direction: column;
+	width: 70%;
+	cursor: pointer;
+}
+
+.carousel-image {
+	width: 100%;
+	aspect-ratio: 3/3;
+	border: solid black 2px;
+	border-bottom: none;
+	display: block;
+}
+
+.carousel-item-text {
+	height: auto;
+	width: 100%;
+	background-color: white;
+	border: solid black 2px;
+}
+
+.carousel-item-text > p {
+	padding: 2px 5px;
+	text-align: justify;
+}
+
+#button-wrapper {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	position: absolute;
+}
+
+.prev,.next {
+	cursor: pointer;
+	background-color: black;
+	color: white;
+}
+
+.button-disabled > .prev,.button-disabled > .next {
+	background-color: lightgrey;
+	border-color: darkgrey;
+	cursor: not-allowed;
+}
+
+#career-history {
+	width: 94%;
+	margin: 1% 3%;
+}
+
+.jobs {
+	margin: 1%;
+	padding: 0.8% 2%;
+	width: 98%;
+	background-color: #edfdff;
+	border: double black 5px;
+}
+
+.job-projects {
+	padding: 0.5% 1%;
+}
+
+.jobs > h4,.job-projects > p,.job-projects > ul {
+	margin: 0;
+}
+
+#education-history {
+	width: 94%;
+	margin: 1% 3%;
+}
+
+.education {
+	margin: 1%;
+	padding: 0.8% 2%;
+	width: 98%;
+	background-color: #edffed;
+	border: double black 5px;
+	border-radius: 25px;
+	cursor: pointer;
+}
+
+.education-title {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: baseline;
+}
+
+.education-details {
+	padding: 0.5% 1%;
+}
+
+.some-education-details {
+	display: none;
+}
+
+.show-education-details {
+	display: block;
+}
+
+.education-title > h4,.education p {
+	margin: 0;
+}
+
+.education-title > p {
+	padding: 5px;
+	font-size: 12px;
+}
+
+@media screen and (max-width: 768px) {
+	#carousel {
+		grid-auto-columns: calc(100%/2);
+	}
+	.carousel-item {
+		width: 75%;
+	}
+}
+
+@media screen and (max-width: 400px) {
+	#carousel {
+		grid-auto-columns: 100%;
+	}
+	.carousel-item {
+		width: 80%;
+	}
+}

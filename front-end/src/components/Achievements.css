@@ -1,0 +1,39 @@
+#achievements-section {
+	width: 100%;
+}
+
+#software-skills {
+	width: 94%;
+	margin: 1% 3%;
+}
+
+.skills-table-container {
+	display: flex;
+	justify-content: center;
+}
+
+table, th, td {
+	border: 2px solid black;
+	background-color: white;
+}
+
+#certifications {
+	width: 94%;
+	margin: 1% 3%;
+}
+
+.certificate {
+	margin: 1%;
+	padding: 0.8% 2%;
+	width: 98%;
+	background-color: #edfdff;
+	border: double black 5px;
+}
+
+.certificate-description {
+	padding: 0.5% 1%;
+}
+
+.certificate > h4, .certificate-description > p {
+	margin: 0;
+}

@@ -1,0 +1,153 @@
+#contact-section {
+	width: 100%;
+}
+
+#info-box {
+	position: fixed;
+	left: 40%;
+	top: 40vh;
+	width: 20%;
+	height: 20vh;
+	border: ridge white 5px;
+	text-align: center;
+	background-color: #efefef;
+	pointer-events: auto;
+	opacity: 1;
+	z-index: 3;
+}
+
+#info-box p {
+	text-align: justify;
+}
+
+#close-infobox-button {
+	position: absolute;
+	right: 0;
+	top: 0;
+	background-color: palevioletred;
+	transition: transform 0.2s;
+	cursor: pointer;
+}
+
+#close-infobox-button:hover {
+	background-color: red;
+	transform: scale(1.1,1.1);
+}
+
+#close-infobox-button:active {
+	transform: scale(1.0,1.0);
+}
+
+#contact-container {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+#contact-form-container {
+	width: 60%;
+	margin: 1% 2.5%;
+	flex-wrap: wrap;
+}
+
+#contact-form {
+	width: 90%;
+	margin: 0.5% 5%;
+	background-color: #edfdff;
+	border: double black 5px;
+}
+
+#contact-form div {
+	width: 100%;
+	padding: 1%;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+
+#contact-form div label {
+	width: 30%;
+}
+
+#contact-form div input {
+	width: 60%;
+}
+
+#contact-form div textarea {
+	width: 60%;
+	max-width: 60%;
+	min-width: 60%;
+	min-height: 3.2vh;
+	max-height: 30vh;
+}
+
+::placeholder {
+	white-space: nowrap;
+	font-size: 0.9em;
+}
+
+#contact-form > #send-button-wrapper {
+	justify-content: center;
+}
+
+#send-button-wrapper > button {
+	width: 50px;
+	border: 1px solid black;
+	border-radius: 25px;
+	background-color: #edffed;
+	color: black;
+	box-shadow: 1.5px 1px 0.5px lightgray;
+	cursor: pointer;
+	transition: transform 0.2s;
+}
+
+#send-button-wrapper > button:hover {
+	background-color: green;
+	color: white;
+	box-shadow: 2px 1.5px 1px gray;
+	transform: scale(1.1,1.1);
+}
+
+#send-button-wrapper > button:active {
+	transform: scale(1.0,1.0);
+}
+
+#links-container {
+	width: 30%;
+	margin: 1% 2%;
+}
+
+#links {
+	list-style-type: none;
+	margin: 0;
+	padding: 2%;
+	display: flex;
+	flex-wrap: wrap;
+	background-color: #edfdff;
+	border: double black 5px;
+}
+
+#links li {
+	padding: 0 3%;
+}
+
+@media screen and (max-width: 768px) {
+	#contact-form div input {
+		width: 100%;
+	}
+
+	#contact-form div textarea {
+		width: 100%;
+		max-width: 100%;
+		min-width: 100%;
+	}
+}
+
+@media screen and (max-width: 400px) {
+	#contact-form-container {
+		width: 100%;
+	}
+
+	#links-container {
+		width: 100%;
+	}	
+}
