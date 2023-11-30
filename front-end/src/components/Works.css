@@ -3,8 +3,16 @@
 }
 
 #personal-projects {
-	width: 94%;
-	margin: 1% 3%;
+	width: 80%;
+	margin: 4% 10%;
+	padding: 1.5% 2%;
+	background-color: #dee3fc;
+	border: solid #808ecc 5px;
+	border-radius: 25px;
+}
+
+#personal-projects > h2 {
+	margin: 1%;
 }
 
 #carousel-wrapper {
@@ -17,14 +25,24 @@
 	overflow: hidden;
 }
 
-#project-container {
+.project-external-div {
 	position: fixed;
-	left: 30%;
-	top: 15vh;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #000000bf;
+	z-index: 10;
+}
+
+#project-container {
 	width: 40%;
 	height: 70vh;
 	border: ridge white 5px;
-	z-index: 3;
+	z-index: 11;
 	overflow-y: scroll;
 }
 
@@ -36,14 +54,12 @@
 }
 
 #close-project-button-wrapper {
-	position: absolute;
+	position: sticky;
 	top: 0;
-	right: 0;
-	padding: 2px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	z-index: 4;
+	left: calc(100% - 25px);
+	width: 25px;
+	margin-top: -25px;
+	z-index: 12;
 }
 
 #close-project-button {
@@ -51,6 +67,7 @@
 	border-radius: 25px;
 	color: black;
 	background-color: white;
+	font-size: x-large;
 	opacity: 0.7;
 	box-shadow: 1.5px 1px 0.5px gray;
 	transition: transform 0.2s, opacity 0.2s;
@@ -58,7 +75,7 @@
 }
 
 #close-project-button:hover {
-	transform: scale(1.1,1.1);
+	transform: scale(1.05,1.05);
 	box-shadow: 2px 1.5px 1px gray;
 	opacity: 1;
 }
@@ -80,6 +97,12 @@
 
 #project-links a {
 	word-wrap: break-word;
+}
+
+.project-empty-div {
+	position: absolute;
+	width: 100%;
+	height: 100%;
 }
 
 #carousel {
@@ -131,13 +154,13 @@
 .carousel-item-text {
 	height: auto;
 	width: 100%;
-	background-color: white;
+	background-color: #edfdff;
 	border: solid black 2px;
 }
 
 .carousel-item-text > p {
 	padding: 2px 5px;
-	text-align: justify;
+	text-align: center;
 }
 
 #button-wrapper {
@@ -149,24 +172,39 @@
 
 .prev,.next {
 	cursor: pointer;
-	background-color: black;
-	color: white;
+	transition: transform 0.5s;
+}
+
+.prev:active,.next:active {
+	transform: scale(0.8);
 }
 
 .button-disabled > .prev,.button-disabled > .next {
-	background-color: lightgrey;
-	border-color: darkgrey;
+	color: grey;
 	cursor: not-allowed;
 }
 
 #career-history {
-	width: 94%;
-	margin: 1% 3%;
+	width: 80%;
+	margin: 4% 10%;
+	padding: 1.5% 2%;
+	background-color: #dee3fc;
+	border: solid #808ecc 5px;
+	border-radius: 25px;
+}
+
+#career-history > h2 {
+	margin: 1%;
+}
+
+#jobs-wrapper {
+	margin: 2% 12.5%;
+	width: 75%;
 }
 
 .jobs {
 	margin: 1%;
-	padding: 0.8% 2%;
+	padding: 2% 4%;
 	width: 98%;
 	background-color: #edfdff;
 	border: double black 5px;
@@ -181,29 +219,61 @@
 }
 
 #education-history {
-	width: 94%;
-	margin: 1% 3%;
+	width: 80%;
+	margin: 4% 10%;
+	padding: 1.5% 2%;
+	background-color: #dee3fc;
+	border: solid #808ecc 5px;
+	border-radius: 25px;
+}
+
+#education-history > h2 {
+	margin: 1%;
+}
+
+#education-wrapper {
+	margin: 2% 12.5%;
+	width: 75%;
 }
 
 .education {
 	margin: 1%;
 	padding: 0.8% 2%;
 	width: 98%;
+	display: flex;
+	flex-wrap: wrap;
 	background-color: #edffed;
 	border: double black 5px;
-	border-radius: 25px;
+	border-radius: 18px;
 	cursor: pointer;
+}
+
+.education-content {
+	width: 90%;
+}
+
+.nav-icon-container {
+	width: 10%;
+	min-height: 3vh;
+	height: auto;
+	display: flex;
+	justify-content: center;
+}
+
+.nav-icon {
+	padding-top: 30%;
 }
 
 .education-title {
 	display: flex;
 	flex-direction: row;
+	flex-wrap: wrap;
 	justify-content: flex-start;
-	align-items: baseline;
+	align-items: center;
 }
 
 .education-details {
-	padding: 0.5% 1%;
+	padding: 1% 3%;
 }
 
 .some-education-details {
@@ -224,19 +294,70 @@
 }
 
 @media screen and (max-width: 768px) {
+	#project-container {
+		width: 60%;
+	}
 	#carousel {
+		width: 75%;
+		margin: 0 12.5%;
 		grid-auto-columns: calc(100%/2);
 	}
 	.carousel-item {
 		width: 75%;
 	}
+	.education {
+		margin: 3% 1%;
+		padding: 2% 5%;
+	}
+	.nav-icon {
+		padding-top: 70%;
+	}
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 450px) {
+	#personal-projects {
+		width: 92%;
+		margin: 4%;
+	}
+	#carousel-wrapper {
+		width: 85%;
+		margin: 2% 7.5%;
+	}
+	#project-container {
+		width: 75%;
+	}
 	#carousel {
 		grid-auto-columns: 100%;
 	}
 	.carousel-item {
 		width: 80%;
+	}
+	#career-history {
+		width: 92%;
+		margin: 4%;
+	}
+	#jobs-wrapper {
+		width: 85%;
+		margin: 2% 7.5%;
+	}
+	#education-history {
+		width: 92%;
+		margin: 4%;
+	}
+	#education-wrapper {
+		width: 85%;
+		margin: 2% 7.5%;
+	}
+	.education {
+		margin: 5% 1%;
+	}
+	.education-content {
+		width: 100%;
+	}
+	.nav-icon-container {
+		width: 100%;
+	}
+	.nav-icon {
+		padding-top: 5%;
 	}
 }

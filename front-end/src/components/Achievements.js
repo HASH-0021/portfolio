@@ -9,10 +9,10 @@ const Achievements = () => {
 			<div className = "certificate" key = {idx}>
 				<h4>{certificate.course}</h4>
 				<div className = "certificate-description">
-					<p>URL : <a href = {certificate.url}>{certificate.url}</a></p>
-					<p>ID : {certificate.id}</p>
-					<p>Skills : {certificate.skills}</p>
+					<p><b>ID</b> : {certificate.id}</p>
+					<p><b>Skills</b> : {certificate.skills}</p>
 				</div>
+				<a href = {certificate.url} target = "_blank" rel = "noopener noreferrer"><button className = "view-certificate">View Certificate</button></a>
 			</div>
 		)
 	}
@@ -21,7 +21,7 @@ const Achievements = () => {
 		<div id = "achievements-section">
 			<div id = "software-skills">
 				<h2>Software Skills</h2>
-				<div className = "skills-table-container">
+				<div id = "skills-table-container">
 					<table>
 						<thead>
 							<tr>

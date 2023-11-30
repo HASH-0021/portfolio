@@ -1,7 +1,9 @@
 from flask import Flask, render_template, request, redirect
-import csv
+from config import Config
+import csv,requests
 
 app = Flask(__name__)
+app.config.from_object(Config)
 
 @app.route('/')
 def index():
@@ -28,7 +30,65 @@ def write_to_file(data):
 def submit_form():
     if request.method == 'POST':
         data = request.form.to_dict()
-        write_to_file(data)
-        return ('',204)
+        if not data['subject']:
+            data['subject'] = "no_subject"
+        recaptcha_token = data['g-recaptcha-response']
+        del data['g-recaptcha-response']
+        google_verification_api = "https://www.google.com/recaptcha/api/siteverify"
+        recaptcha_request_params = {
+                                    "secret"    :   app.config['RECAPTCHA_SECRET_KEY'],
+                                    "response"  :   recaptcha_token
+                                    }
+        recaptcha_api_response = requests.post(google_verification_api, params = recaptcha_request_params)
+        if recaptcha_api_response.json()["success"]:
+            slack_webhook_url = app.config['SLACK_PORTFOLIO_WEBHOOK']
+            slack_message = {
+                                "blocks"    :   [
+                                                    {
+                                                        "type"  :   "header",
+                                                        "text"  :   {
+                                                                        "type"  :   "plain_text",
+                                                                        "text"  :   f"{data['name']}"
+                                                                    }
+                                                    },
+                                                    {
+                                                        "type"  :   "section",
+                                                        "text"  :   {
+                                                                        "type"  :   "mrkdwn",
+                                                                        "text"  :   f"*E-mail:* _{data['email']}_"
+                                                                    }
+                                                    },
+                                                    {
+                                                        "type"  :   "section",
+                                                        "text"  :   {
+                                                                        "type"  :   "mrkdwn",
+                                                                        "text"  :   f"*Subject:* {data['subject']}"
+                                                                    }
+                                                    },
+                                                    {
+                                                        "type"  :   "section",
+                                                        "text"  :   {
+                                                                        "type"  :   "mrkdwn",
+                                                                        "text"  :   f"*Message:*\n>_{data['message']}_"
+                                                                    }
+                                                    },
+                                                    {
+                                                        "type"  :   "section",
+                                                        "text"  :   {
+                                                                        "type"  :   "mrkdwn",
+                                                                        "text"  :   f"<mailto:{data['email']}|Send reply>"
+                                                                    }
+                                                    }
+                                                ]
+                            }
+            slack_resp = requests.post(slack_webhook_url, json = slack_message)
+
+            if slack_resp.text == "ok":
+                write_to_file(data)
+                return ('',204)
+            else:
+                return 'Something went wrong. Try again!!'
+        else:
+            return ('Bots detected.',403)
     else:
         return 'Something went wrong. Try again!!'

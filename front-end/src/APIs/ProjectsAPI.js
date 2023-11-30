@@ -34,7 +34,7 @@ const projects = [
 		"links"		:	{
 							"GitHub"	:	"https://github.com/HASH-0021/Hacker-News-Web-Scraper"
 						}
-	},
+	}
 ]
 
 export { projects };

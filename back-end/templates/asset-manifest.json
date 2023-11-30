@@ -1,18 +1,24 @@
 {
   "files": {
-    "main.css": "/static/css/main.7b1ec588.css",
-    "main.js": "/static/js/main.9722aac3.js",
-    "static/js/787.22edae46.chunk.js": "/static/js/787.22edae46.chunk.js",
+    "main.css": "/static/css/main.8f572b00.css",
+    "main.js": "/static/js/main.0a113e93.js",
+    "static/js/787.498e3191.chunk.js": "/static/js/787.498e3191.chunk.js",
     "static/media/Profile picture.png": "/static/media/Profile picture.11ff7245c46af82e9a7a.png",
+    "static/media/fa-solid-900.ttf": "/static/media/fa-solid-900.d75e3fd1eb12e9bd6655.ttf",
+    "static/media/fa-brands-400.ttf": "/static/media/fa-brands-400.016b4a6cdced82ab3aa1.ttf",
+    "static/media/fa-solid-900.woff2": "/static/media/fa-solid-900.b6879d41b0852f01ed5b.woff2",
+    "static/media/fa-brands-400.woff2": "/static/media/fa-brands-400.878f31251d960bd6266f.woff2",
+    "static/media/fa-regular-400.ttf": "/static/media/fa-regular-400.50701fbb8177c2dde530.ttf",
     "static/media/Hacker News Web Scraper logo.png": "/static/media/Hacker News Web Scraper logo.d39c985ce17609c11afa.png",
     "static/media/my Portfolio logo.png": "/static/media/my Portfolio logo.db5fd5473fc89052cd95.png",
+    "static/media/fa-regular-400.woff2": "/static/media/fa-regular-400.b041b1fa4fe241b23445.woff2",
     "index.html": "/index.html",
-    "main.7b1ec588.css.map": "/static/css/main.7b1ec588.css.map",
-    "main.9722aac3.js.map": "/static/js/main.9722aac3.js.map",
-    "787.22edae46.chunk.js.map": "/static/js/787.22edae46.chunk.js.map"
+    "main.8f572b00.css.map": "/static/css/main.8f572b00.css.map",
+    "main.0a113e93.js.map": "/static/js/main.0a113e93.js.map",
+    "787.498e3191.chunk.js.map": "/static/js/787.498e3191.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.7b1ec588.css",
-    "static/js/main.9722aac3.js"
+    "static/css/main.8f572b00.css",
+    "static/js/main.0a113e93.js"
   ]
 }

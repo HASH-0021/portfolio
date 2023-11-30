@@ -4,6 +4,9 @@ import { projects } from '../APIs/ProjectsAPI';
 import { jobs } from '../APIs/JobsAPI';
 import { education } from '../APIs/EducationAPI';
 import './Works.css';
+import '../font awesome/css/fontawesome.css';
+import '../font awesome/css/regular.css';
+import '../font awesome/css/solid.css';
 
 const Works = () => {
 	const [carousel,setCarousel] = React.useState(null);
@@ -74,36 +77,42 @@ const Works = () => {
 	const expandProject = (project) => {
 		clearTimeout(timeoutId);
 		setProjectView(
-			<div id = "project-container">
-				<div id = "close-project-button-wrapper">
-					<button id = "close-project-button" onClick = {() => {
-																			setProjectView(null);
-																			autoscrollCarousel();
-																		}}>X</button>
+			<div className = "project-external-div">
+				<div id = "project-container">
+					<div id = "close-project-button-wrapper">
+						<i id = "close-project-button" className = "fa-solid fa-circle-xmark" onClick = {() => {
+																											setProjectView(null);
+																											autoscrollCarousel();
+																										}}></i>
+					</div>
+					<img id = "project-image" src = {project.image} alt = {project.title+" logo"} />
+					<div id = "project-text">
+						<h2>{project.title}</h2>
+						<hr />
+						<h3>Description:</h3>
+						<p>{project.longDesc}</p>
+						<h3>Skills Used:</h3>
+						<ul>
+							{project.skills.map((skill,idx) => <li key = {idx}>{skill}</li>)}
+						</ul>
+						<h3>Links:</h3>
+						<ul id = "project-links">
+							{
+								Object.entries(project.links)
+								.map(([site,url],idx) => {
+									return 	<li key = {idx}>
+												<b>{site}</b> - <a href = {url} target = "_blank" rel = "noopener noreferrer">{url}</a>
+											</li>
+									}
+								)
+							}
+						</ul>
+					</div>
 				</div>
-				<img id = "project-image" src = {project.image} alt = {project.title+" logo"} />
-				<div id = "project-text">
-					<h2>{project.title}</h2>
-					<hr />
-					<h3>Description:</h3>
-					<p>{project.longDesc}</p>
-					<h3>Skills Used:</h3>
-					<ul>
-						{project.skills.map((skill,idx) => <li key = {idx}>{skill}</li>)}
-					</ul>
-					<h3>Links:</h3>
-					<ul id = "project-links">
-						{
-							Object.entries(project.links)
-							.map(([site,url],idx) => {
-								return 	<li key = {idx}>
-											<b>{site}</b> - <a href = {url}>{url}</a>
-										</li>
-								}
-							)
-						}
-					</ul>
-				</div>
+				<div className = "project-empty-div" onClick = {() => {
+																		setProjectView(null);
+																		autoscrollCarousel();
+																	}}></div>
 			</div>
 		);
 	}
@@ -132,7 +141,7 @@ const Works = () => {
 						<div className = "job-projects" key = {idx2}>
 							<p><em>{project.role}</em></p>
 							<p><i>Duration : {project.duration}</i></p>
-							<p>Experience:</p>
+							<p>Experience :</p>
 							<ul>
 								{project.experiences.map((exp,idx3) => <li key = {idx3}>{exp}</li>)}
 							</ul>
@@ -145,29 +154,35 @@ const Works = () => {
 
 	const showEducationDetails = (event) => {
 		const elementDetails = event.currentTarget.querySelector(".some-education-details");
+		const navIcon = event.currentTarget.querySelector(".nav-icon");
 		if (elementDetails.classList.contains("show-education-details")) {
 			elementDetails.classList.remove("show-education-details");
+			navIcon.classList.replace("fa-circle-chevron-up","fa-circle-chevron-down");
 		}else {
 			elementDetails.classList.add("show-education-details");
+			navIcon.classList.replace("fa-circle-chevron-down","fa-circle-chevron-up");
 		}
 	}
 
 	const getEducation = (edu,idx) => {
 		return (
 			<div className = "education" key = {idx} onClick = {showEducationDetails}>
-				<div className = "education-title">
-					<h4>{edu.class}</h4>
-					<p><i>({edu.stage})</i></p>
-				</div>
-				<div className = "education-details">
-					<div className = "some-education-details">
-						<p>Specification : {edu.specifications}</p>
-						<p>Institution : {edu.institution}</p>
-						<p>Location : {edu.location}</p>
-						<p>Duration : {edu.duration}</p>
+				<div className = "education-content">
+					<div className = "education-title">
+						<h4>{edu.class}</h4>
+						<p><i>({edu.stage})</i></p>
 					</div>
-					<p>Score : {edu.score}</p>
+					<div className = "education-details">
+						<div className = "some-education-details">
+							<p><b>Specification</b> : {edu.specifications}</p>
+							<p><b>Institution</b> : {edu.institution}</p>
+							<p><b>Location</b> : {edu.location}</p>
+							<p><b>Duration</b> : {edu.duration}</p>
+						</div>
+						<p><b>Score</b> : {edu.score}</p>
+					</div>
 				</div>
+				<div className = "nav-icon-container"><i className="fa-solid fa-circle-chevron-down fa-lg nav-icon"></i></div>
 			</div>
 		)
 	}
@@ -181,8 +196,8 @@ const Works = () => {
 						{projects.map((project,idx) => getCarouselItem(project,idx))}
 					</ul>
 					<div id = "button-wrapper">
-						<button className = "prev" onClick = {carouselSlideLeft}>&#10094;</button>
-						<button className = "next" onClick = {carouselSlideRight}>&#10095;</button>
+						<i className = "fa-regular fa-square-caret-left fa-xl prev" onClick = {carouselSlideLeft}></i>
+						<i className = "fa-regular fa-square-caret-right fa-xl next" onClick = {carouselSlideRight}></i>
 					</div>
 				</div>
 			</div>
