@@ -130,7 +130,7 @@ def webhook():
     if request.method == 'POST' and is_valid_signature(request.headers.get('X-Hub-Signature'), request.data, app.config['GITHUB_WEBHOOK_SECRET']):
         repo = git.Repo('/home/hash21/portfolio')
         origin = repo.remotes.origin
-        origin.pull()
+        origin.pull(force=True)
         return 'Updated PythonAnywhere successfully', 200
     else:
         return 'Wrong event type', 400
