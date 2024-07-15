@@ -1,127 +1,21 @@
 #achievements-section {
 	width: 100%;
-}
-
-#software-skills {
-	width: 80%;
-	margin: 4% 10%;
-	padding: 1.5% 2%;
-	background-color: #dee3fc;
-	border: solid #808ecc 5px;
-	border-radius: 25px;
-}
-
-#software-skills > h2 {
-	margin: 1%;
-}
-
-#skills-table-container {
 	display: flex;
+	flex-wrap: wrap;
 	justify-content: center;
-	margin: 2% 12.5%;
-	width: 75%;
-}
-
-table {
-	background-color: black;
-}
-
-th {
-	padding: 1.5% 2.5%;
-	font-size: large;
-	background-color: lightblue;
-}
-
-td {
-	padding: 1% 2%;
-	background-color: #edfdff;
-}
-
-#certifications {
-	width: 80%;
-	margin: 4% 10%;
-	padding: 1.5% 2%;
-	background-color: #dee3fc;
-	border: solid #808ecc 5px;
-	border-radius: 25px;
-}
-
-#certifications > h2 {
-	margin: 1%;
+	align-items: center;
 }
 
 #certificates-wrapper {
-	margin: 2% 12.5%;
-	width: 75%;
+	margin: 32px 5%;
+	width: 90%;
 	display: flex;
 	flex-wrap: wrap;
 }
 
-.certificate {
-	margin: 1% 5%;
-	padding: 2% 4%;
-	width: 40%;
-	background-color: #edffed;
-	border: solid black 2px;
-	border-radius: 18px;
-}
-
-.certificate-description {
-	padding: 2% 5%;
-}
-
-.certificate-description > p {
-	padding: 1%;
-}
-
-.certificate > h4, .certificate-description > p {
-	margin: 0;
-}
-
-.view-certificate {
-	background-color: #5a9ce8;
-	color: white;
-	margin: 2%;
-	padding: 5px 10px;
-	font-weight: bold;
-	border: none;
-	border-radius: 25px;
-	cursor: pointer;
-	transition: background-color 0.2s, transform 0.5s;
-}
-
-.view-certificate:hover {
-	background-color: #4077b7;
-	transform: scale(1.05);
-}
-
-.view-certificate:active {
-	transform: scale(0.9);
-}
-
-@media screen and (max-width: 768px) {
-	.certificate {
-		margin: 3% 5%;
-		padding: 2% 5%;
-		width: 90%;
-	}
-}
-
-@media screen and (max-width: 450px) {
-	#software-skills {
-		width: 92%;
-		margin: 4%;
-	}
-	#skills-table-container {
-		width: 85%;
-		margin: 2% 7.5%;
-	}
-	#certifications {
-		width: 92%;
-		margin: 4%;
-	}
+@media screen and (max-width: 900px) {
 	#certificates-wrapper {
 		width: 85%;
-		margin: 2% 7.5%;
+		margin: 32px 7.5%;
 	}
 }

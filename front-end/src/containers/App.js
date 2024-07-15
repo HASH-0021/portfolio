@@ -1,141 +1,85 @@
 import React from 'react';
-import { Outlet,NavLink } from 'react-router-dom';
-import myPortfolio from '../assets/my Portfolio logo.png';
+import { Outlet } from 'react-router-dom';
+
+import FullWidthTabs from '../Helpers/FullWidthTabs';
+import BasicMenu from '../Helpers/BasicMenu';
+import Copyright from '../Helpers/Copyright';
+
+import Tooltip from '@mui/material/Tooltip';
+import Zoom from '@mui/material/Zoom';
+import Fab from '@mui/material/Fab';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+
 import './App.css';
-import '../font awesome/css/fontawesome.css';
-import '../font awesome/css/regular.css';
-import '../font awesome/css/solid.css';
 
 const App = () => {
-  const [navMenu,setNavMenu] = React.useState(null);
-  const [projectView,setProjectView] = React.useState(null);
-  const [infoBox,setInfoBox] = React.useState(null);
 
-  const navBarClick = async (event) => {
-    const navBarMenu = event.currentTarget.querySelector("#header-nav-icon");
-    navBarMenu.classList.add("fa-shake");
-    await new Promise((resolve) => {
-                                      if (navMenu) {
-                                        setNavMenu(null);
-                                      } else {
-                                        setNavMenu(navSection);
-                                      }
-                                      setTimeout(resolve, 500);
-                                    });
-    navBarMenu.classList.remove("fa-shake");
-  }
+    // Related to BasicMenu Component
+    const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const navSection =  <div id = "header-nav-list">
-                        <NavLink to = "" className = {({isActive}) => isActive ? "nav-list selected" : "nav-list"}>
-                          <div>Home</div>
-                        </NavLink>
-                        <NavLink to = "works" className = {({isActive}) => isActive ? "nav-list selected" : "nav-list"}>
-                          <div>Works</div>
-                        </NavLink>
-                        <NavLink to = "achievements" className = {({isActive}) => isActive ? "nav-list selected" : "nav-list"}>
-                          <div>Achievements</div>
-                        </NavLink>
-                        <NavLink to = "contact" className = {({isActive}) => isActive ? "nav-list selected" : "nav-list"}>
-                          <div>Contact</div>
-                        </NavLink>
-                      </div>;
-
-  const smileyToEyeHearts = (event) => {
-    const emoji = event.currentTarget;
-    emoji.classList.replace("fa-face-smile","fa-face-grin-hearts");
-  }
-
-  const eyeHeartsToSquint = (event) => {
-    const emoji = event.currentTarget;
-    emoji.classList.replace("fa-face-grin-hearts","fa-face-laugh-squint");
-  }
-
-  const squintToEyeHearts = (event) => {
-    const emoji = event.currentTarget;
-    emoji.classList.replace("fa-face-laugh-squint","fa-face-grin-hearts");
-    showHearts(event);
-  }
-
-  const showHearts = async (event) => {
-    const footerNote = event.currentTarget.parentElement;
-    const [heart1,heart2] = footerNote.querySelectorAll(".heart");
-    await new Promise(resolve => 
-                                  {
-                                    heart2.classList.add("heart-2-start");
-                                    setTimeout(resolve, 750);
-                                  });
-    await new Promise(resolve => 
-                                  {
-                                    heart2.classList.replace("heart-2-start","heart-2-end");
-                                    setTimeout(resolve, 750);
-                                  });
-    await new Promise(resolve => 
-                                  {
-                                    heart1.classList.add("heart-1-start");
-                                    setTimeout(resolve, 750);
-                                  });
-    await new Promise(resolve => 
-                                  {
-                                    heart1.classList.replace("heart-1-start","heart-1-end");
-                                    setTimeout(resolve, 750);
-                                  });
-    heart1.classList.remove("heart-1-end");
-    heart2.classList.remove("heart-2-end");
-  }
-
-  const eyeHeartsToSmiley = (event) => {
-    const emoji = event.currentTarget;
-    emoji.classList.replace("fa-face-grin-hearts","fa-face-smile");
-  }
-
-  React.useEffect(() => {
-    let appBody = document.body;
-    if (infoBox || projectView) {
-      appBody.classList.add("overflow-blocked");
-    }else {
-      appBody.classList.remove("overflow-blocked");
+    const navTabs = ["Home", "Works", "Achievements", "Contact"];
+    let pathname = document.location.pathname.slice(1);
+    if (pathname.length) {
+        pathname = pathname[0].toUpperCase()+pathname.slice(1);
     }
-  },[infoBox, projectView]);
+    const [tabIdx,setTabIdx] = React.useState(pathname.length ? navTabs.indexOf(pathname) : 0);
+    const [showScrollToTop,setShowScrollToTop] = React.useState(document.documentElement.scrollTop > 250 ? true : false);
 
-  return (
-    <div id = "app-body">
-      {infoBox}
-      {projectView}
-      <div id = "main-section">    
-        <header>
-          <nav id = "header-nav">
-            <div id = "header-nav-menu-desktop">
-              {navSection}
-            </div>
-            <span id = "header-nav-menu-mobile" onClick = {navBarClick}>
-              <div id = "header-nav-icon"><i className = "fa-solid fa-bars fa-xl"></i></div>
-              {navMenu}
-            </span>
-          </nav>
-        </header>
-        <div id = "contents">
-          <div id = "logo-container">
-            <img id = "logo" src = {myPortfolio} alt = "my Portfolio logo" />
-          </div>
-          <Outlet context = {{projectView, setProjectView, setInfoBox}} />
-        </div>
-        <footer>
-          <p>
-            Created by Sri Harsha.
-            <i className = "fa-solid fa-heart fa-2xs heart"></i>
-            <i 
-              className = "fa-regular fa-face-smile emoji" 
-              onMouseOver = {smileyToEyeHearts} 
-              onMouseDown = {eyeHeartsToSquint} 
-              onMouseUp = {squintToEyeHearts} 
-              onMouseOut = {eyeHeartsToSmiley}
-            ></i>
-            <i className = "fa-solid fa-heart fa-xs heart"></i>
-          </p>
-        </footer>
-      </div>
-    </div>
-  );
+    window.onscroll = () => {
+        setShowScrollToTop(document.documentElement.scrollTop > 250 ? true : false);
+    }
+
+    window.onresize = () => {
+        if (window.outerWidth >= 600) {
+            setAnchorEl(null);
+        }
+    }
+
+    const scrollToTop = () => {
+        let intervalRef;
+        intervalRef = setInterval(() => {
+            if (document.documentElement.scrollTop > 0) {
+                document.documentElement.scrollTop -= 15;
+            }else {
+                clearInterval(intervalRef);
+            }
+            },5);
+    }
+
+    return (
+        <main>
+            <header>
+                <FullWidthTabs navTabs = {navTabs} tabIdx = {tabIdx} setTabIdx = {setTabIdx} />
+                <BasicMenu anchorEl = {anchorEl} setAnchorEl = {setAnchorEl} navTabs = {navTabs} tabIdx = {tabIdx} setTabIdx = {setTabIdx} />
+            </header>
+            <Outlet context = {{setAnchorEl}} />
+            {
+                showScrollToTop
+                &&
+                <Tooltip TransitionComponent={Zoom} placement="left" title="Scroll to top" arrow>
+                    <Fab
+                        aria-label="scroll to top"
+                        sx={{
+                                position:"fixed",
+                                right:12,
+                                bottom:16,
+                                bgcolor:"#334593",
+                                color:"white",
+                                transition:"background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,scale 250ms",
+                                "&:hover":{bgcolor:"#3d53b0"},
+                                "&:active": {scale: "0.95"}
+                            }}
+                        onClick={scrollToTop}
+                    >
+                        <ArrowUpwardIcon />
+                    </Fab>
+                </Tooltip>
+            }
+            <footer>
+                <Copyright />
+            </footer>
+        </main>
+    );
 }
 
 export default App;

@@ -3,7 +3,7 @@ const certificates = [
 		"course"	:	"Web Development",
 		"url"		:	"https://ude.my/UC-74ff0724-fe21-4284-a36d-e0bc885c68b8",
 		"id"		:	"UC-74ff0724-fe21-4284-a36d-e0bc885c68b8",
-		"skills"	:	"ReactJs, ExpressJs, Redux, NodeJs, HTML, CSS, Js"
+		"skills"	:	"HTML, CSS, JavaScript, ReactJs, NodeJs, ExpressJs, Redux"
 	},
 	{
 		"course"	:	"Python Programming Language",

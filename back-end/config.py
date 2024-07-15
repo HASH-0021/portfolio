@@ -1,3 +1,6 @@
+import os
+
 class Config:
-    SLACK_PORTFOLIO_WEBHOOK = 'my slack webhook url'
-    RECAPTCHA_SECRET_KEY = 'recaptcha secret key'
+    SLACK_PORTFOLIO_WEBHOOK = os.getenv("SLACK_PORTFOLIO_WEBHOOK")
+    RECAPTCHA_SECRET_KEY = os.getenv("RECAPTCHA_SECRET_KEY")
+    GITHUB_WEBHOOK_SECRET = os.getenv("GITHUB_WEBHOOK_SECRET")

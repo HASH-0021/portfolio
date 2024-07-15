@@ -1,11 +1,9 @@
 #home-section {
   width: 100%;
-  margin: 4% 0;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
-  background-color: transparent;
 }
 
 #profile-text {
@@ -22,7 +20,7 @@
 }
 
 #content-body {
-  margin: 2% 4%;
+  margin: 2% 5%;
   font-size: 100%;
 }
 

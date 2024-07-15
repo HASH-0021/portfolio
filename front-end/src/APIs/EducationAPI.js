@@ -20,7 +20,7 @@ const education = [
 	{
 		"class"				:	"10th Class",
 		"stage"				:	"Secondary Education",
-		"specifications"	:	"English, Telugu, Hindi, Mathematics, Science and Social",
+		"specifications"	:	"English, Telugu, Hindi, Mathematics, Science and Social studies",
 		"institution"		:	"Bhashyam Public School",
 		"location"			:	"Rajahmundry, Andhra Pradesh, India",
 		"duration"			:	"July,2012 - April,2013",

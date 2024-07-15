@@ -1,94 +1,18 @@
 #works-section {
 	width: 100%;
-}
-
-#personal-projects {
-	width: 80%;
-	margin: 4% 10%;
-	padding: 1.5% 2%;
-	background-color: #dee3fc;
-	border: solid #808ecc 5px;
-	border-radius: 25px;
-}
-
-#personal-projects > h2 {
-	margin: 1%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
 }
 
 #carousel-wrapper {
-	margin: 2% 12.5%;
-	width: 75%;
+	margin: 32px 5%;
+	width: 90%;
 	text-align: center;
 	position: relative;
 	display: flex;
 	align-items: center;
-	overflow: hidden;
-}
-
-.project-external-div {
-	position: fixed;
-	width: 100%;
-	height: 100%;
-	top: 0;
-	left: 0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background-color: #000000bf;
-	z-index: 10;
-}
-
-#project-container {
-	width: 40%;
-	height: 70vh;
-	border: ridge white 5px;
-	z-index: 11;
-	overflow-y: scroll;
-}
-
-#project-image {
-	width: 100%;
-	height: auto;
-	aspect-ratio: 4/3;
-	display: block;
-}
-
-#close-project-button-wrapper {
-	position: sticky;
-	top: 0;
-	left: calc(100% - 25px);
-	width: 25px;
-	margin-top: -25px;
-	z-index: 12;
-}
-
-#close-project-button {
-	border-style: hidden;
-	border-radius: 25px;
-	color: black;
-	background-color: white;
-	font-size: x-large;
-	opacity: 0.7;
-	box-shadow: 1.5px 1px 0.5px gray;
-	transition: transform 0.2s, opacity 0.2s;
-	cursor: pointer;
-}
-
-#close-project-button:hover {
-	transform: scale(1.05,1.05);
-	box-shadow: 2px 1.5px 1px gray;
-	opacity: 1;
-}
-
-#close-project-button:active {
-	transform: scale(1.0,1.0);
-}
-
-#project-text {
-	width: 100%;
-	height: auto;
-	background-color: lightgoldenrodyellow;
-	padding: 2% 5%;
 }
 
 #project-links {
@@ -99,22 +23,15 @@
 	word-wrap: break-word;
 }
 
-.project-empty-div {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-}
-
 #carousel {
 	margin: 0 5%;
 	padding: 0;
-	list-style: none;
 	width: 90%;
 	display: grid;
 	grid-auto-flow: column;
 	grid-auto-columns: calc(100%/3);
 	overflow-x: auto;
-	scroll-snap-type: x mandatory;
+/*	scroll-snap-type: x mandatory;*/
 	scroll-behavior: smooth;
 	z-index: 1;
 }
@@ -125,42 +42,6 @@
 
 #carousel.no-scroll-transition {
 	scroll-behavior: auto;
-}
-
-.carousel-item-container {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 100%;
-	height: auto;
-	scroll-snap-align: start;
-}
-
-.carousel-item {
-	display: flex;
-	flex-direction: column;
-	width: 70%;
-	cursor: pointer;
-}
-
-.carousel-image {
-	width: 100%;
-	aspect-ratio: 3/3;
-	border: solid black 2px;
-	border-bottom: none;
-	display: block;
-}
-
-.carousel-item-text {
-	height: auto;
-	width: 100%;
-	background-color: #edfdff;
-	border: solid black 2px;
-}
-
-.carousel-item-text > p {
-	padding: 2px 5px;
-	text-align: center;
 }
 
 #button-wrapper {
@@ -184,180 +65,41 @@
 	cursor: not-allowed;
 }
 
-#career-history {
-	width: 80%;
-	margin: 4% 10%;
-	padding: 1.5% 2%;
-	background-color: #dee3fc;
-	border: solid #808ecc 5px;
-	border-radius: 25px;
-}
-
-#career-history > h2 {
-	margin: 1%;
-}
-
 #jobs-wrapper {
-	margin: 2% 12.5%;
+	margin: 32px 12.5%;
 	width: 75%;
-}
-
-.jobs {
-	margin: 1%;
-	padding: 2% 4%;
-	width: 98%;
-	background-color: #edfdff;
-	border: double black 5px;
-}
-
-.job-projects {
-	padding: 0.5% 1%;
-}
-
-.jobs > h4,.job-projects > p,.job-projects > ul {
-	margin: 0;
-}
-
-#education-history {
-	width: 80%;
-	margin: 4% 10%;
-	padding: 1.5% 2%;
-	background-color: #dee3fc;
-	border: solid #808ecc 5px;
-	border-radius: 25px;
-}
-
-#education-history > h2 {
-	margin: 1%;
 }
 
 #education-wrapper {
-	margin: 2% 12.5%;
+	margin: 32px 12.5%;
 	width: 75%;
 }
 
-.education {
-	margin: 1%;
-	padding: 0.8% 2%;
-	width: 98%;
-	display: flex;
-	flex-wrap: wrap;
-	background-color: #edffed;
-	border: double black 5px;
-	border-radius: 18px;
-	cursor: pointer;
-}
-
-.education-content {
-	width: 90%;
-}
-
-.nav-icon-container {
-	width: 10%;
-	min-height: 3vh;
-	height: auto;
-	display: flex;
-	justify-content: center;
-}
-
-.nav-icon {
-	padding-top: 30%;
-}
-
-.education-title {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	justify-content: flex-start;
-	align-items: center;
-}
-
-.education-details {
-	padding: 1% 3%;
-}
-
-.some-education-details {
-	display: none;
-}
-
-.show-education-details {
-	display: block;
-}
-
-.education-title > h4,.education p {
-	margin: 0;
-}
-
-.education-title > p {
-	padding: 5px;
-	font-size: 12px;
-}
-
-@media screen and (max-width: 768px) {
-	#project-container {
-		width: 60%;
-	}
+@media screen and (max-width: 900px) {
 	#carousel {
 		width: 75%;
 		margin: 0 12.5%;
 		grid-auto-columns: calc(100%/2);
 	}
-	.carousel-item {
-		width: 75%;
-	}
-	.education {
-		margin: 3% 1%;
-		padding: 2% 5%;
-	}
-	.nav-icon {
-		padding-top: 70%;
-	}
 }
 
-@media screen and (max-width: 450px) {
-	#personal-projects {
-		width: 92%;
-		margin: 4%;
-	}
+@media screen and (max-width: 600px) {
 	#carousel-wrapper {
 		width: 85%;
-		margin: 2% 7.5%;
-	}
-	#project-container {
-		width: 75%;
+		margin: 32px 7.5%;
 	}
 	#carousel {
 		grid-auto-columns: 100%;
 	}
-	.carousel-item {
-		width: 80%;
-	}
-	#career-history {
-		width: 92%;
-		margin: 4%;
-	}
 	#jobs-wrapper {
 		width: 85%;
-		margin: 2% 7.5%;
+		margin: 32px 7.5%;
 	}
-	#education-history {
-		width: 92%;
-		margin: 4%;
+	#experience-list {
+		padding-inline-start: 20px;
 	}
 	#education-wrapper {
 		width: 85%;
-		margin: 2% 7.5%;
-	}
-	.education {
-		margin: 5% 1%;
-	}
-	.education-content {
-		width: 100%;
-	}
-	.nav-icon-container {
-		width: 100%;
-	}
-	.nav-icon {
-		padding-top: 5%;
+		margin: 32px 7.5%;
 	}
 }

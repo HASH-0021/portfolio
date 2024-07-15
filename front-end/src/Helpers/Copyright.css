@@ -1,0 +1,40 @@
+.emoji {
+  cursor: pointer;
+  transition: scale 0.5s;
+}
+
+.emoji:hover {
+  scale: 1.2;
+}
+
+.emoji:active {
+  scale: 0.8;
+}
+
+.heart {
+  color: red;
+  transition: translate 0.75s, rotate 0.75s, opacity 0.75s;
+  opacity: 0;
+}
+
+.heart-1-start {
+  translate: 0.6vw -4vh;
+  opacity: 1;
+}
+
+.heart-2-start {
+  translate: -0.6vw -3.5vh;
+  opacity: 1;
+}
+
+.heart-1-end {
+  translate: 0 -7vh;
+  rotate: -30deg;
+  opacity: 0;
+}
+
+.heart-2-end {
+  translate: 0 -5vh;
+  rotate: 30deg;
+  opacity: 0;
+}

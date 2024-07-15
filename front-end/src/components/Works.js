@@ -1,103 +1,262 @@
 import React from 'react';
 import { useOutletContext } from 'react-router-dom';
+
+import Paper from '@mui/material/Paper';
+import Card from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
+import CardMedia from '@mui/material/CardMedia';
+import CardContent from '@mui/material/CardContent';
+import Backdrop from '@mui/material/Backdrop';
+import { Divider } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import Collapse from '@mui/material/Collapse';
+import IconButton from '@mui/material/IconButton';
+import Fab from '@mui/material/Fab';
+import CloseIcon from '@mui/icons-material/Close';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Tooltip from '@mui/material/Tooltip';
+
 import { projects } from '../APIs/ProjectsAPI';
 import { jobs } from '../APIs/JobsAPI';
 import { education } from '../APIs/EducationAPI';
-import './Works.css';
+
 import '../font awesome/css/fontawesome.css';
 import '../font awesome/css/regular.css';
 import '../font awesome/css/solid.css';
 
-const Works = () => {
-	const [carousel,setCarousel] = React.useState(null);
-	const [cardWidth,setCardWidth] = React.useState(0);
-	const {projectView,setProjectView} = useOutletContext();
-	let timeoutId,autoscrollCarousel;
+import './Works.css';
 
-	React.useEffect(() => {
-		const carouselVar = document.getElementById("carousel")
-		setCarousel(carouselVar);
-		setCardWidth(carouselVar.getElementsByClassName("carousel-item-container")[0].offsetWidth);
+const Works = () => {
+
+	const {setAnchorEl} = useOutletContext();
+
+	const [backdropOpen,setBackdropOpen] = React.useState(false);
+	const [projectView,setProjectView] = React.useState(null);
+	const [itemsBefore,setItemsBefore] = React.useState(null);
+	const [itemsAfter,setItemsAfter] = React.useState(null);
+
+	const intervalRef = React.useRef(0);
+	const carouselRef = React.useRef(null);
+	const cardWidthRef = React.useRef(0);
+
+	const adjustCarousel = React.useCallback(() => {
+		cardWidthRef.current = carouselRef.current.childNodes[0].offsetWidth+32;
+		let cardPerView = Math.round(carouselRef.current.offsetWidth/cardWidthRef.current);
+		if (projects.length >= cardPerView) {
+			setItemsBefore(
+							<>
+								{projects.slice(projects.length-cardPerView).map((project,idx) =>	<CarouselItem
+																										project = {project}
+																										key = {idx}
+																										setBackdropOpen = {setBackdropOpen}
+																										setProjectView = {setProjectView}
+																										closeProject = {closeProject} 
+																									/>
+																				)}
+							</>
+							);
+			setItemsAfter(
+							<>
+								{projects.slice(0,cardPerView).map((project,idx) =>	<CarouselItem
+																						project = {project}
+																						key = {idx}
+																						setBackdropOpen = {setBackdropOpen}
+																						setProjectView = {setProjectView}
+																						closeProject = {closeProject} 
+																					/>
+																	)}
+							</>
+							);
+		}else {
+			let buttonWrapper = document.getElementById("button-wrapper");
+			buttonWrapper.classList.add("button-disabled");
+			[...buttonWrapper.children].forEach(button => {button.disabled = "true";});
+		}
 	},[]);
 
-	React.useEffect(() => {
-		if (carousel) {
-			let carouselChildren = [...carousel.children];
-			let cardPerView = Math.round(carousel.offsetWidth/cardWidth);
-			if (projects.length >= cardPerView) {
-				for (let i = 0; i < cardPerView; i++) {
-					carousel.insertBefore(carouselChildren[projects.length-i-1].cloneNode(true),carousel.firstChild);
-					carousel.firstChild.addEventListener("click", () => expandProject(projects[projects.length-i-1]));
-					carousel.appendChild(carouselChildren[i].cloneNode(true));
-					carousel.lastChild.addEventListener("click", () => expandProject(projects[i]));
-				}
-				carousel.classList.add("no-scroll-transition");
-				carousel.scrollLeft = carousel.offsetWidth;
-				carousel.classList.remove("no-scroll-transition");
-				autoscrollCarousel();
-			}else {
-				let buttonWrapper = document.getElementById("button-wrapper");
-				buttonWrapper.classList.add("button-disabled");
-				[...buttonWrapper.children].forEach(button => {button.disabled = "true";});
-			}
-		}
-	},[carousel,cardWidth,autoscrollCarousel]);
-
-	const carouselSlideLeft = () => {
-		carousel.scrollLeft -= cardWidth;
+	window.onresize = () => {
+		if (window.outerWidth >= 600) {
+            setAnchorEl(null);
+        }
+		clearInterval(intervalRef.current);
+		adjustCarousel();
 	}
 
-	const carouselSlideRight = () => {
-		carousel.scrollLeft += cardWidth;
+	React.useEffect(() => {
+		carouselRef.current = document.getElementById("carousel");
+		adjustCarousel();
+		return () => {
+			clearInterval(intervalRef.current);
+		};
+	},[adjustCarousel]);
+
+	React.useEffect(() => {
+		if (itemsBefore) {
+			carouselRef.current.classList.add("no-scroll-transition");
+			carouselRef.current.scrollLeft = carouselRef.current.offsetWidth;
+			carouselRef.current.classList.remove("no-scroll-transition");
+			intervalRef.current = setInterval(() => carouselRef.current.scrollLeft += cardWidthRef.current,3000);
+		}
+	},[itemsBefore])
+
+	const autoscrollCarousel = () => {
+		intervalRef.current = setInterval(() => carouselRef.current.scrollLeft += cardWidthRef.current,3000);
+	}
+
+
+	const arrowHover = (event) => {
+		const arrowButton = event.currentTarget;
+		arrowButton.classList.replace("fa-regular","fa-solid");
+	}
+
+	const arrowHoverOut = (event) => {
+		const arrowButton = event.currentTarget;
+		arrowButton.classList.replace("fa-solid","fa-regular");
+	}
+
+	const carouselSlideLeft = (event) => {
+		carouselRef.current.scrollLeft -= cardWidthRef.current;
+	}
+
+	const carouselSlideRight = (event) => {
+		carouselRef.current.scrollLeft += cardWidthRef.current;
 	}
 
 	const infiniteScroll = () => {
-		if(carousel) {
-		    if(carousel.scrollLeft === 0) {
+		if (carouselRef.current) {
+			let carousel = carouselRef.current;
+		    if (carousel.scrollLeft <= 10) {
 		        carousel.classList.add("no-scroll-transition");
 		        carousel.scrollLeft = carousel.scrollWidth - (2 * carousel.offsetWidth);
 		        carousel.classList.remove("no-scroll-transition");
 		    }
-		    else if(Math.ceil(carousel.scrollLeft) === carousel.scrollWidth - carousel.offsetWidth) {
+		    else if (carousel.scrollLeft >= carousel.scrollWidth - carousel.offsetWidth - 10) {
 		        carousel.classList.add("no-scroll-transition");
 		        carousel.scrollLeft = carousel.offsetWidth;
 		        carousel.classList.remove("no-scroll-transition");
 		    }
-		    clearTimeout(timeoutId);
-		    if (!carousel.parentNode.matches(":hover")) autoscrollCarousel();
-		}
-	}
-	
-	autoscrollCarousel = () => {
-		if (!projectView) {
-			timeoutId = setTimeout(() => carousel.scrollLeft += cardWidth,3000);
 		}
 	}
 
-	const expandProject = (project) => {
-		clearTimeout(timeoutId);
-		setProjectView(
-			<div className = "project-external-div">
-				<div id = "project-container">
-					<div id = "close-project-button-wrapper">
-						<i id = "close-project-button" className = "fa-solid fa-circle-xmark" onClick = {() => {
-																											setProjectView(null);
-																											autoscrollCarousel();
-																										}}></i>
+	const closeProject = () => {
+		const pageBody = document.querySelector("body");
+		pageBody.removeAttribute("style");
+		setBackdropOpen(false);
+		setProjectView(null);
+	}
+
+	return (
+		<section id = "works-section">
+			<Paper square={false} elevation={3} sx={{ mt:8,padding:"2% 5%",width:"75%",bgcolor:"#dee3fc" }}>
+				<h2>Personal Projects</h2>
+				<div id = "carousel-wrapper"  onMouseEnter = {() => clearInterval(intervalRef.current)} onMouseLeave = {autoscrollCarousel}>
+					<div id = "carousel" onScroll = {infiniteScroll}>
+						{itemsBefore}
+						{projects.map((project,idx) =>	<CarouselItem
+																project = {project}
+																key = {idx}
+																setBackdropOpen = {setBackdropOpen}
+																setProjectView = {setProjectView}
+																closeProject = {closeProject} 
+														/>
+									)}
+						{itemsAfter}
 					</div>
-					<img id = "project-image" src = {project.image} alt = {project.title+" logo"} />
-					<div id = "project-text">
-						<h2>{project.title}</h2>
-						<hr />
-						<h3>Description:</h3>
-						<p>{project.longDesc}</p>
-						<h3>Skills Used:</h3>
+					<div id = "button-wrapper">
+						<Tooltip title="Move carousel right" placement="left" arrow>
+							<i className = "fa-regular fa-square-caret-left fa-xl prev" onMouseEnter = {arrowHover} onMouseLeave = {arrowHoverOut} onClick = {carouselSlideLeft}></i>
+						</Tooltip>
+						<Tooltip title="Move carousel left" placement="right" arrow>
+							<i className = "fa-regular fa-square-caret-right fa-xl next" onMouseEnter = {arrowHover} onMouseLeave = {arrowHoverOut} onClick = {carouselSlideRight}></i>
+						</Tooltip>
+					</div>
+					<Backdrop
+						sx={{ bgcolor: "#000000bf",zIndex: (theme) => theme.zIndex.drawer + 1 }}
+						open={backdropOpen}
+						onClick={closeProject}
+					>
+						{projectView}
+					</Backdrop>
+				</div>
+			</Paper>
+			<Paper square={false} elevation={3} sx={{ mt:8,padding:"2% 5%",width:"75%",bgcolor:"#dee3fc" }}>
+				<h2>Career History</h2>
+				<div id = "jobs-wrapper">
+					{jobs.map((job,idx) => <Job job={job} key={idx} />)}
+				</div>
+			</Paper>
+			<Paper square={false} elevation={3} sx={{ my:8,padding:"2% 5%",width:"75%",bgcolor:"#dee3fc" }}>
+				<h2>Education History</h2>
+				<div id = "education-wrapper">
+					{education.map((edu,idx) => <Education edu={edu} key={idx} />)}
+				</div>
+			</Paper>
+		</section>
+	);
+}
+
+const CarouselItem = ({ project,setBackdropOpen,setProjectView,closeProject }) => {
+
+	const expandProject = (project) => {
+		const pageBody = document.body;
+		pageBody.style.overflow = "hidden";
+		setBackdropOpen(true);
+		setProjectView(
+			<Card 
+				sx = {{
+						width: {xs:"60%",sm:"50%",md:"40%",lg:"30%"},
+						height: "70%",
+						bgcolor: "#edfdff",
+						border: "solid black 4px",
+						overflow: "auto"
+					}}
+				onClick={(event) => event.stopPropagation()}
+			>
+				<Tooltip title="Close button" placement="bottom-end" arrow>
+					<Fab
+						aria-label="close"
+						size="small"
+						sx={{
+								position: "sticky",
+								top:"8px",
+								left:"calc(100% - 40px)",
+								m:1,
+								p:0,
+								bgcolor:"rgba(0,0,0,0.2)",
+								color:"black",
+								transition:"background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,scale 250ms",
+								"&:hover": {color:"red"},
+								"&:active": {scale: "0.95"}
+							}}
+						onClick={closeProject}
+					>
+						<CloseIcon fontSize="small" />
+					</Fab>
+				</Tooltip>
+				<div
+					style={{
+							position:'relative',
+							top:'-56px'
+						}}
+				>
+					<CardMedia
+						component="img"
+						image={project.image}
+						alt={`${project.title} logo`}
+					/>
+					<Divider sx={{ borderWidth: 1 }} />
+					<CardHeader title={project.title} sx={{ bgcolor: "#aef9ff" }} />
+					<Divider sx={{ borderWidth: 1 }} />
+					<CardContent sx={{ textAlign: "left" }}>
+						<CardHeader title={"Desription"} />
+						<CardContent>{project.longDesc}</CardContent>
+						<CardHeader title={"Skills Used"} />
 						<ul>
-							{project.skills.map((skill,idx) => <li key = {idx}>{skill}</li>)}
-						</ul>
-						<h3>Links:</h3>
-						<ul id = "project-links">
-							{
+				 			{project.skills.map((skill,idx) => <li key = {idx}>{skill}</li>)}
+				 		</ul>
+				 		<CardHeader title={"Links"} />
+				 		<ul id = "project-links">
+				 			{
 								Object.entries(project.links)
 								.map(([site,url],idx) => {
 									return 	<li key = {idx}>
@@ -107,114 +266,116 @@ const Works = () => {
 								)
 							}
 						</ul>
-					</div>
+					</CardContent>
 				</div>
-				<div className = "project-empty-div" onClick = {() => {
-																		setProjectView(null);
-																		autoscrollCarousel();
-																	}}></div>
-			</div>
+			</Card>
 		);
 	}
 
-	const getCarouselItem = (project,idx) => {
-		return (
-			<li className = "carousel-item-container" key = {idx}>
-				<div className = "carousel-item" onClick = {() => expandProject(project)}>
-					<img className = "carousel-image" src = {project.image} alt = {project.title+" logo"} />
-					<div className = "carousel-item-text">
-						<h4>{project.title}</h4>
-						<hr />
-						<p>{project.shortDesc}</p>
-					</div>
-				</div>
-			</li>
+	return (
+			<Card
+				sx={{ mx: 2,bgcolor: "#edfdff",border: "solid black 2px",cursor: "pointer" }}
+				onClick = {() => expandProject(project)}
+			>
+				<CardMedia
+					component="img"
+					image={project.image}
+					alt={`${project.title} logo`}
+				/>
+				<Divider sx={{ borderWidth: 1 }} />
+				<CardHeader title={project.title} sx={{ bgcolor: "#aef9ff" }} />
+				<Divider sx={{ borderWidth: 1 }} />
+				<CardContent>{project.shortDesc}</CardContent>
+			</Card>
 		)
-	}
+}
 
-	const getJobs = (job,idx1) => {
-		return (
-			<div className = "jobs" key = {idx1}>
-				<h4>{job.company}</h4>
-				{job.projects.map((project,idx2) => {
+const Job = ({ job }) => {
+	return (
+		<Card sx={{ bgcolor:"#edfdff",border: "solid black 2px" }}>
+			<CardHeader title={job.company} sx={{ bgcolor: "#aef9ff" }} />
+			<Divider sx={{ borderWidth: 1 }} />
+			{
+				job.projects.map((project,idx1) => {
 					return (
-						<div className = "job-projects" key = {idx2}>
-							<p><em>{project.role}</em></p>
-							<p><i>Duration : {project.duration}</i></p>
-							<p>Experience :</p>
-							<ul>
-								{project.experiences.map((exp,idx3) => <li key = {idx3}>{exp}</li>)}
-							</ul>
-						</div>
+						<CardContent key = {idx1} sx={{ m: 3,border: "solid black 1px" }}>
+							<CardHeader subheader={
+													<>
+														<b>{project.role}</b>
+														<i> ({project.duration})</i>
+													</>
+							} />
+							<Divider sx={{ borderWidth: 1 }} />
+							<CardContent>
+								Experience :
+								<ul id = "experience-list">
+				 					{project.experiences.map((exp,idx2) => <li key = {idx2}>{exp}</li>)}
+				 				</ul>
+				 			</CardContent>
+						</CardContent>
 					)
-				})}
-			</div>
-		)
-	}
+				})
+			}
+		</Card>
+	)
 
-	const showEducationDetails = (event) => {
-		const elementDetails = event.currentTarget.querySelector(".some-education-details");
-		const navIcon = event.currentTarget.querySelector(".nav-icon");
-		if (elementDetails.classList.contains("show-education-details")) {
-			elementDetails.classList.remove("show-education-details");
-			navIcon.classList.replace("fa-circle-chevron-up","fa-circle-chevron-down");
-		}else {
-			elementDetails.classList.add("show-education-details");
-			navIcon.classList.replace("fa-circle-chevron-down","fa-circle-chevron-up");
-		}
-	}
+}
 
-	const getEducation = (edu,idx) => {
-		return (
-			<div className = "education" key = {idx} onClick = {showEducationDetails}>
-				<div className = "education-content">
-					<div className = "education-title">
-						<h4>{edu.class}</h4>
-						<p><i>({edu.stage})</i></p>
-					</div>
-					<div className = "education-details">
-						<div className = "some-education-details">
-							<p><b>Specification</b> : {edu.specifications}</p>
-							<p><b>Institution</b> : {edu.institution}</p>
-							<p><b>Location</b> : {edu.location}</p>
-							<p><b>Duration</b> : {edu.duration}</p>
-						</div>
-						<p><b>Score</b> : {edu.score}</p>
-					</div>
-				</div>
-				<div className = "nav-icon-container"><i className="fa-solid fa-circle-chevron-down fa-lg nav-icon"></i></div>
-			</div>
-		)
-	}
+const ExpandMore = styled((props) => {
+	const { expand, ...other } = props;
+		  return <IconButton {...other} />;
+		})(({ theme, expand }) => ({
+		  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+		  margin: 'auto',
+		  marginRight: '0',
+		  transition: theme.transitions.create('transform', {
+		    duration: theme.transitions.duration.shortest,
+		  }),
+	}));
+
+const Education = ({ edu }) => {
+	const [expanded, setExpanded] = React.useState(false);
+
+	const handleExpandClick = () => {
+		setExpanded(!expanded);
+	};
 
 	return (
-		<div id = "works-section">
-			<div id = "personal-projects">
-				<h2>Personal Projects</h2>
-				<div id = "carousel-wrapper" onMouseOver = {() => clearTimeout(timeoutId)} onMouseOut = {autoscrollCarousel}>
-					<ul id = "carousel" onScroll = {infiniteScroll}>
-						{projects.map((project,idx) => getCarouselItem(project,idx))}
+		<Card
+			sx={{
+				my: 2,
+				bgcolor: "#aef9ff",
+				border: "solid black 2px"				
+			}}			
+		>
+			<CardHeader title={edu.class} subheader={<i>({edu.stage})</i>} />
+			<Divider sx={{ borderWidth: 1 }} />
+			<Tooltip
+				title={`Click to ${expanded ? "hide": "show more"} details`}
+				followCursor
+				slotProps={{ popper: { modifiers: [{ name: 'offset',options: {offset: [0, 10]} }] } }}
+			>
+				<CardContent sx={{ display: "flex",bgcolor: "#edfdff",cursor: "pointer" }} onClick={handleExpandClick}>
+					<ul style={{listStyleType: "none",padding: 0}}>
+						<Collapse in={expanded} unmountOnExit>
+							<li><b>Specification</b> : {edu.specifications}</li>
+							<li><b>Institution</b> : {edu.institution}</li>
+							<li><b>Location</b> : {edu.location}</li>
+							<li><b>Duration</b> : {edu.duration}</li>
+						</Collapse>
+						<li><b>Score</b> : {edu.score}</li>
 					</ul>
-					<div id = "button-wrapper">
-						<i className = "fa-regular fa-square-caret-left fa-xl prev" onClick = {carouselSlideLeft}></i>
-						<i className = "fa-regular fa-square-caret-right fa-xl next" onClick = {carouselSlideRight}></i>
-					</div>
-				</div>
-			</div>
-			<div id = "career-history">
-				<h2>Career History</h2>
-				<div id = "jobs-wrapper">
-					{jobs.map((job,idx) => getJobs(job,idx))}
-				</div>
-			</div>
-			<div id = "education-history">
-				<h2>Education History</h2>
-				<div id = "education-wrapper">
-					{education.map((edu,idx) => getEducation(edu,idx))}
-				</div>
-			</div>
-		</div>
-	);
+					<ExpandMore
+			          expand={expanded}	    
+			          aria-expanded={expanded}
+			          aria-label="show more"
+			        >
+			          <ExpandMoreIcon />
+			        </ExpandMore>
+				</CardContent>
+			</Tooltip>
+		</Card>
+	)
 }
 
 export default Works;
