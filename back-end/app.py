@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, send_from_directory
 from config import Config
 import csv,requests
 
-app = Flask(__name__,static_folder="build/static",template_folder="build")
+app = Flask(__name__,static_folder="build/assets",template_folder="build")
 app.config.from_object(Config)
 
 @app.route("/favicon.ico")

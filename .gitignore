@@ -11,6 +11,9 @@
 # production
 # **/build/
 
+# backend
+**/myvenv/
+
 # misc
 **/.env
 **/.DS_Store
