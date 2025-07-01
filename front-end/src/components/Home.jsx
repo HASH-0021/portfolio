@@ -3,12 +3,13 @@ import Avatar from '@mui/material/Avatar';
 
 import profilePic from '../assets/Profile picture.png';
 
+import color from '../Helpers/colors';
 import './Home.css';
 
 const Home = () => {
 	return (
         <section id = "home-section">
-        	<Paper square={false} elevation={3} sx={{ mt:8,px:"5%",py:{xs:"4%",sm:"2%"},width:"75%",bgcolor:"#edfdff" }}>
+        	<Paper square={false} elevation={3} sx={{ mt:8,px:"5%",py:{xs:"4%",sm:"2%"},width:"75%",bgcolor:color.sectionBgColor }}>
 	        	<p id = "salutation">
 	            	Hi there,
 	          	</p>
@@ -16,7 +17,7 @@ const Home = () => {
 	            	My name is <strong>Sri Harsha</strong>. I am a Software Developer.
 	            	<br />
 	            	<br />
-	            	This is my portfolio showcasing all of my works, skills and other details. I am currently looking for an opportunity as a Front-end Web Developer. I even have some knowledge in Python programming language, Back-end web development and Databases.
+	            	This is my portfolio showcasing all of my works, skills and other details. I am currently looking for an opportunity as a Front-end Web Developer. I even have some knowledge in Python programming language, Back-end web development, Databases and Machine Learning.
 	            	<br />
 	            	<br />
 	            	Besides that I am a cuber, a gamer and a puzzle enthusiast. I am fluent in English, Telugu and Hindi.

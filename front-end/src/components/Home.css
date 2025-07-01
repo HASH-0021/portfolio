@@ -6,14 +6,6 @@
   align-items: center;
 }
 
-#profile-text {
-  width: 75%;
-  padding: 2% 5%;
-  background-color: #edfdff;
-  border: double black 5px;
-  border-radius: 25px;
-}
-
 #salutation {
   margin: 0;
   font-size: 125%;

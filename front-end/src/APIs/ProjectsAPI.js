@@ -1,9 +1,20 @@
+import screenTimeTracker from '../assets/Screen Time Tracker Icon.png';
 import sudokuSolverWebApp from '../assets/Sudoku Solver WebApp logo.png';
 import myPortfolio from '../assets/my Portfolio logo.png';
 import dateTime from '../assets/DateTime logo.png';
 import hackerNewsWebScraper from '../assets/Hacker News Web Scraper logo.png';
 
 const projects = [
+	{
+		"title"		:	"Screen Time Tracker",
+		"image"		:	screenTimeTracker,
+		"shortDesc"	:	"An app to track the screen time of apps.",
+		"longDesc"	:	"This app tracks screen time of all apps present on the device. It has many features like setting goals, persistent tracking notification, export and import app data, and dark mode.",
+		"skills"	:	["React Native", "Java", "ReactJs", "JavaScript"],
+		"links"		:	{
+							"GitHub"	:	"https://github.com/HASH-0021/screen_time_tracker"
+						}
+	},
 	{
 		"title"		:	"Sudoku Solver WebApp",
 		"image"		:	sudokuSolverWebApp,

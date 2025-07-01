@@ -24,6 +24,7 @@ import '../font awesome/css/fontawesome.css';
 import '../font awesome/css/regular.css';
 import '../font awesome/css/solid.css';
 
+import color from '../Helpers/colors';
 import './Works.css';
 
 const Works = () => {
@@ -92,6 +93,7 @@ const Works = () => {
 
 	React.useEffect(() => {
 		if (itemsBefore) {
+			clearInterval(intervalRef.current);
 			carouselRef.current.classList.add("no-scroll-transition");
 			carouselRef.current.scrollLeft = carouselRef.current.offsetWidth;
 			carouselRef.current.classList.remove("no-scroll-transition");
@@ -100,6 +102,7 @@ const Works = () => {
 	},[itemsBefore])
 
 	const autoscrollCarousel = () => {
+		clearInterval(intervalRef.current);
 		intervalRef.current = setInterval(() => carouselRef.current.scrollLeft += cardWidthRef.current,3000);
 	}
 
@@ -147,7 +150,7 @@ const Works = () => {
 
 	return (
 		<section id = "works-section">
-			<Paper square={false} elevation={3} sx={{ mt:8,padding:"2% 5%",width:"75%",bgcolor:"#dee3fc" }}>
+			<Paper square={false} elevation={3} sx={{ mt:8,padding:"2% 5%",width:"75%",bgcolor:color.sectionBgColor }}>
 				<h2>Personal Projects</h2>
 				<div id = "carousel-wrapper"  onMouseEnter = {() => clearInterval(intervalRef.current)} onMouseLeave = {autoscrollCarousel}>
 					<div id = "carousel" onScroll = {infiniteScroll}>
@@ -179,13 +182,13 @@ const Works = () => {
 					</Backdrop>
 				</div>
 			</Paper>
-			<Paper square={false} elevation={3} sx={{ mt:8,padding:"2% 5%",width:"75%",bgcolor:"#dee3fc" }}>
+			<Paper square={false} elevation={3} sx={{ mt:8,padding:"2% 5%",width:"75%",bgcolor:color.sectionBgColor }}>
 				<h2>Career History</h2>
 				<div id = "jobs-wrapper">
 					{jobs.map((job,idx) => <Job job={job} key={idx} />)}
 				</div>
 			</Paper>
-			<Paper square={false} elevation={3} sx={{ my:8,padding:"2% 5%",width:"75%",bgcolor:"#dee3fc" }}>
+			<Paper square={false} elevation={3} sx={{ my:8,padding:"2% 5%",width:"75%",bgcolor:color.sectionBgColor }}>
 				<h2>Education History</h2>
 				<div id = "education-wrapper">
 					{education.map((edu,idx) => <Education edu={edu} key={idx} />)}
@@ -206,7 +209,7 @@ const CarouselItem = ({ project,setBackdropOpen,setProjectView,closeProject }) =
 				sx = {{
 						width: {xs:"60%",sm:"50%",md:"40%",lg:"30%"},
 						height: "70%",
-						bgcolor: "#edfdff",
+						bgcolor: color.itemBgColor,
 						border: "solid black 4px",
 						overflow: "auto"
 					}}
@@ -245,7 +248,7 @@ const CarouselItem = ({ project,setBackdropOpen,setProjectView,closeProject }) =
 						alt={`${project.title} logo`}
 					/>
 					<Divider sx={{ borderWidth: 1 }} />
-					<CardHeader title={project.title} sx={{ bgcolor: "#aef9ff" }} />
+					<CardHeader title={project.title} sx={{ bgcolor: color.itemHeaderColor }} />
 					<Divider sx={{ borderWidth: 1 }} />
 					<CardContent sx={{ textAlign: "left" }}>
 						<CardHeader title={"Desription"} />
@@ -274,7 +277,7 @@ const CarouselItem = ({ project,setBackdropOpen,setProjectView,closeProject }) =
 
 	return (
 			<Card
-				sx={{ mx: 2,bgcolor: "#edfdff",border: "solid black 2px",cursor: "pointer" }}
+				sx={{ mx: 2,bgcolor: color.itemBgColor,border: "solid black 2px",cursor: "pointer" }}
 				onClick = {() => expandProject(project)}
 			>
 				<CardMedia
@@ -283,7 +286,7 @@ const CarouselItem = ({ project,setBackdropOpen,setProjectView,closeProject }) =
 					alt={`${project.title} logo`}
 				/>
 				<Divider sx={{ borderWidth: 1 }} />
-				<CardHeader title={project.title} sx={{ bgcolor: "#aef9ff" }} />
+				<CardHeader title={project.title} sx={{ "& .MuiCardHeader-title": {fontSize: "1.2rem"},bgcolor: color.itemHeaderColor }} />
 				<Divider sx={{ borderWidth: 1 }} />
 				<CardContent>{project.shortDesc}</CardContent>
 			</Card>
@@ -292,8 +295,8 @@ const CarouselItem = ({ project,setBackdropOpen,setProjectView,closeProject }) =
 
 const Job = ({ job }) => {
 	return (
-		<Card sx={{ my: 2,bgcolor:"#edfdff",border: "solid black 2px" }}>
-			<CardHeader title={job.company} sx={{ bgcolor: "#aef9ff" }} />
+		<Card sx={{ my: 2,bgcolor:color.itemBgColor,border: "solid black 2px" }}>
+			<CardHeader title={job.company} sx={{ "& .MuiCardHeader-title": {fontSize: "1.2rem"},bgcolor: color.itemHeaderColor }} />
 			<Divider sx={{ borderWidth: 1 }} />
 			{
 				job.projects.map((project,idx1) => {
@@ -344,7 +347,8 @@ const Education = ({ edu }) => {
 		<Card
 			sx={{
 				my: 2,
-				bgcolor: "#aef9ff",
+				"& .MuiCardHeader-title": {fontSize: "1.2rem"},
+				bgcolor: color.itemHeaderColor,
 				border: "solid black 2px"				
 			}}			
 		>
@@ -355,7 +359,7 @@ const Education = ({ edu }) => {
 				followCursor
 				slotProps={{ popper: { modifiers: [{ name: 'offset',options: {offset: [0, 10]} }] } }}
 			>
-				<CardContent sx={{ display: "flex",bgcolor: "#edfdff",cursor: "pointer" }} onClick={handleExpandClick}>
+				<CardContent sx={{ display: "flex",bgcolor: color.itemBgColor,cursor: "pointer" }} onClick={handleExpandClick}>
 					<ul style={{listStyleType: "none",padding: 0}}>
 						<Collapse in={expanded} unmountOnExit>
 							<li><b>Specification</b> : {edu.specifications}</li>

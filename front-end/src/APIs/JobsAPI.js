@@ -4,7 +4,7 @@ const jobs = [
 		"projects"	:	[
 							{
 								"role"			:	"LLM Python Developer",
-								"duration"		:	"October,2024 - Present",
+								"duration"		:	"October,2024 - March,2025",
 								"experiences"	:	[
 														"Worked on various LLM training methods for Python and JavaScript related prompts like RLHF side-by-side evaluations, concretized prompts, rewritten synthesized unit tests and coding prompt generation.",
 														"Worked on feedback for math reasoning prompts."

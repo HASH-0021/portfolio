@@ -9,7 +9,13 @@ const certificates = [
 		"course"	:	"Python Programming Language",
 		"url"		:	"https://ude.my/UC-7949b7da-7116-4691-af96-2e1f61ea3c0c",
 		"id"		:	"UC-7949b7da-7116-4691-af96-2e1f61ea3c0c",
-		"skills"	:	"Python, Flask, Django, Tkinter, Numpy"
+		"skills"	:	"Python, Flask, Django, Tkinter, Pandas, Numpy"
+	},
+	{
+		"course"	:	"Machine Learning",
+		"url"		:	"https://www.kaggle.com/learn/certification/dvsriharsha/intermediate-machine-learning",
+		"id"		:	null,
+		"skills"	:	"Decision Trees, Underfitting and Overfitting, Random Forests, Cross-validation, XGBoost"
 	}
 ]
 

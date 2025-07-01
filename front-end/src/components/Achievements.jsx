@@ -16,17 +16,18 @@ import Tooltip from '@mui/material/Tooltip';
 import { skills } from '../APIs/SkillsAPI';
 import { certificates } from '../APIs/CertificatesAPI';
 
+import color from '../Helpers/colors';
 import './Achievements.css';
 
 const Achievements = () => {
 
 	return (
 		<section id = "achievements-section">
-			<Paper square={false} elevation={3} sx={{ mt:8,padding:"2% 5%",width:"75%",bgcolor:"#dee3fc" }}>
+			<Paper square={false} elevation={3} sx={{ mt:8,padding:"2% 5%",width:"75%",bgcolor:color.sectionBgColor }}>
 				<h2>Software Skills</h2>
 				<TableContainer component={Paper} sx={{ mx:{xs:"7.5%",sm:"12.5%"},my:4,width:{xs:"85%",sm:"75%"},border:"2px solid black" }}>
 					<Table aria-label="simple table">
-						<TableHead sx = {{ bgcolor: "#aef9ff" }}>
+						<TableHead sx = {{ bgcolor: color.itemHeaderColor }}>
 							<TableRow>
 								<TableCell
 									sx=
@@ -53,7 +54,7 @@ const Achievements = () => {
 								</TableCell>
 							</TableRow>
 						</TableHead>
-						<TableBody sx = {{ bgcolor: "#edfdff" }}>
+						<TableBody sx = {{ bgcolor: color.itemBgColor }}>
 							{
 								skills.map((skill,idx) => (
 								    <TableRow key={idx}>
@@ -100,7 +101,7 @@ const Achievements = () => {
 					</Table>
 				</TableContainer>
 			</Paper>
-			<Paper square={false} elevation={3} sx={{ my:8,padding:"2% 5%",width:"75%",bgcolor:"#dee3fc" }}>
+			<Paper square={false} elevation={3} sx={{ my:8,padding:"2% 5%",width:"75%",bgcolor:color.sectionBgColor }}>
 				<h2>Certifications</h2>
 				<div id = "certificates-wrapper">
 					{certificates.map((certificate,idx) => <Certificate certificate={certificate} key={idx} />)}
@@ -112,11 +113,11 @@ const Achievements = () => {
 
 const Certificate = ({ certificate }) => {
 	return (
-		<Card sx={{ mx:"auto",my:{xs:1,md:"auto"},width:{md:"45%"},border: "solid black 2px" }}>
-			<CardHeader title={certificate.course} sx={{ bgcolor: "#aef9ff" }} />
-			<Divider />
-			<CardContent sx={{ bgcolor: "#edfdff" }}>
-				<p><b>ID</b> : {certificate.id}</p>
+		<Card sx={{ mx:"auto",my:1,width:{md:"45%"},border: "solid black 2px" }}>
+			<CardHeader title={certificate.course} sx={{ "& .MuiCardHeader-title": {fontSize: "1.2rem"},bgcolor: color.itemHeaderColor }} />
+			<Divider sx={{ borderWidth: 1 }} />
+			<CardContent sx={{ bgcolor: color.itemBgColor }}>
+				{certificate.id !== null && <p><b>ID</b> : {certificate.id}</p>}
 				<p><b>Skills</b> : {certificate.skills}</p>
 				<CardActions sx={{ justifyContent:"center"}}>
 					<Tooltip title="Go to this certificate url" arrow>
